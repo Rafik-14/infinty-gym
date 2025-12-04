@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADMIN | INFINITY GYM</title>
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Shrikhand:400|Fira+Sans+Extra+Condensed:400|Open+Sans:400|Noto+Sans:400,500|Inter:400");
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --background: #120602;
+      --primary: #fda312;
+      --secondary: #bc3b10;
+      --card-bg: rgba(30, 30, 30, 0.95);
+      --input-bg: rgba(51, 51, 51, 0.8);
+    }
+
+    body {
+      font-family: 'Noto Sans', 'Open Sans', Helvetica, sans-serif;
+      background: linear-gradient(135deg, #120602 0%, #1a0a04 50%, #120602 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    /* Login Panel */
+    #auth-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #120602 0%, #1a0a04 50%, #120602 100%);
+      z-index: 9999;
+    }
+
+    .auth-container {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(253, 163, 18, 0.3);
+      padding: 60px 50px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      border: 2px solid rgba(253, 163, 18, 0.2);
+    }
+
+    .auth-logo {
+      font-family: "Shrikhand", Helvetica;
+      color: var(--primary);
+      font-size: 48px;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .auth-subtitle {
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      color: #ffffff;
+      font-size: 20px;
+      margin-bottom: 40px;
+      opacity: 0.8;
+    }
+
+    #auth-panel input {
+      width: 100%;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      border: 2px solid rgba(253, 163, 18, 0.3);
+      background: var(--input-bg);
+      color: #ffffff;
+      font-size: 16px;
+      font-family: 'Open Sans', Helvetica;
+      transition: all 0.3s;
+    }
+
+    #auth-panel input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(253, 163, 18, 0.3);
+    }
+
+    #auth-panel button {
+      width: 100%;
+      padding: 16px;
+      background: var(--secondary);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      font-family: "Shrikhand", Helvetica;
+      transition: all 0.3s;
+    }
+
+    #auth-panel button:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(253, 163, 18, 0.4);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      background-color: rgba(18, 6, 2, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(253, 163, 18, 0.1);
+    }
+
+    .logo {
+      font-family: "Shrikhand", Helvetica;
+      color: var(--primary);
+      font-size: 28px;
+      letter-spacing: -0.5px;
+    }
+
+    .navigations {
+      display: flex;
+      margin-left: auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      color: #ffffff;
+      font-size: 20px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(253, 163, 18, 0.1);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(253, 163, 18, 0.15);
+    }
+
+    .logout-btn {
+      background: var(--secondary);
+      color: #ffffff;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 120px auto 40px;
+      padding: 0 48px;
+    }
+
+    /* Dashboard Content */
+    .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      max-width: 1000px; /* Max width for main content */
+      margin: 0 auto;
+    }
+
+    .main-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Card Styles */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(253, 163, 18, 0.1);
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 12px 48px rgba(253, 163, 18, 0.2);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      font-family: "Shrikhand", Helvetica;
+      font-size: 32px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid rgba(253, 163, 18, 0.2);
+    }
+
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-bar input {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 2px solid rgba(253, 163, 18, 0.3);
+      background: var(--input-bg);
+      color: #ffffff;
+      font-family: 'Open Sans', Helvetica;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(253, 163, 18, 0.2);
+    }
+
+    .search-bar button {
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: none;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 100px;
+    }
+
+    .search-bar button:first-of-type {
+      background: var(--primary);
+      color: #000000;
+    }
+
+    .search-bar button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(253, 163, 18, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        flex-direction: column;
+      }
+      
+      .search-bar input,
+      .search-bar button {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 18px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 2px solid rgba(253, 163, 18, 0.3);
+      background: var(--input-bg);
+      color: #ffffff;
+      font-family: 'Open Sans', Helvetica;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Table Styles */
+    .subscriber-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .subscriber-table th {
+      background: rgba(253, 163, 18, 0.15);
+      color: var(--primary);
+      padding: 16px;
+      text-align: left;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgba(253, 163, 18, 0.3);
+      white-space: nowrap;
+    }
+
+    .subscriber-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(253, 163, 18, 0.1);
+      font-family: 'Open Sans', Helvetica;
+      font-size: 15px;
+    }
+    
+    .subscriber-table td:last-child {
+      white-space: nowrap;
+    }
+
+    .subscriber-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .subscriber-table tr:hover {
+      background: rgba(253, 163, 18, 0.05);
+    }
+
+    .status-active { color: #22c55e; font-weight: bold; }
+    .status-expiring { color: #fbbf24; font-weight: bold; }
+    .status-expired { color: #ef4444; font-weight: bold; }
+
+    /* Buttons */
+    .cta-button {
+      background: var(--secondary);
+      color: #ffffff;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .cta-button:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(253, 163, 18, 0.4);
+    }
+
+    .btn-edit {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 14px;
+      transition: all 0.3s;
+      min-width: 60px;
+    }
+
+    .btn-delete {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 14px;
+      transition: all 0.3s;
+      min-width: 60px;
+    }
+
+    .btn-edit:hover, .btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-view-msg {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    
+    .btn-view-msg:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Messages */
+    .message {
+      padding: 14px 20px;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      font-family: "Fira Sans Extra Condensed", Helvetica;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .message.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 2px solid #22c55e;
+    }
+
+    .message.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 2px solid #ef4444;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      margin: 5% auto;
+      padding: 40px;
+      border: 2px solid rgba(253, 163, 18, 0.3);
+      width: 90%;
+      max-width: 550px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(253, 163, 18, 0.3);
+    }
+
+    .modal-content h3 {
+      font-family: "Shrikhand", Helvetica;
+      color: var(--primary);
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    .close-button {
+      color: #aaa;
+      float: right;
+      font-size: 32px;
+      font-weight: bold;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .close-button:hover {
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Utility Classes */
+    .flex-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .flex-row .cta-button {
+      flex: 1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Contact Message styles */
+    .contact-message-item {
+      padding: 15px;
+      border-bottom: 1px solid rgba(253, 163, 18, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .contact-message-item:last-child {
+      border-bottom: none;
+    }
+    
+    .contact-info {
+      flex-grow: 1;
+    }
+    
+    .contact-info p {
+      margin: 4px 0;
+    }
+    
+    .contact-info .contact-name {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.1em;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 24px;
+      }
+      .container {
+        padding: 0 24px;
+      }
+      .navigations {
+        gap: 16px;
+      }
+      .nav-link {
+        font-size: 16px;
+        padding: 6px 12px;
+      }
+      
+      /* Table responsive for mobile */
+      .subscriber-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="auth-panel">
+    <div class="auth-container">
+      <h1 class="auth-logo">ADMIN LOGIN</h1>
+      <p class="auth-subtitle">Welcome back, manager</p>
+      <form onsubmit="event.preventDefault(); login();" autocomplete="off">
+        <input type="text" id="username" placeholder="Username" required autocomplete="username" aria-label="Admin username">
+        <input type="password" id="password" placeholder="Password" required autocomplete="current-password" aria-label="Admin password">
+        <button type="submit">Log In</button>
+      </form>
+      <div id="login-message" class="message hidden" style="margin-top: 24px;" role="alert" aria-live="polite"></div>
+      <p style="margin-top: 20px; font-size: 12px; color: #999; text-align: center;">⚠️ For demo: admin/password<br/>Production: Use Firebase Auth</p>
+    </div>
+  </div>
+
+  <div id="dashboard-view" class="hidden">
+    <nav class="navbar">
+      <div class="logo">INFINITY GYM - ADMIN</div>
+      <div class="navigations">
+        <a href="#" id="nav-dashboard" class="nav-link active">Dashboard</a>
+        <a href="#" id="nav-contacts" class="nav-link">Contact Messages</a>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="dashboard-content">
+        <div class="main-panel">
+          
+          <div class="card">
+            <h2>Subscriber List</h2>
+            <div id="add-message" class="message hidden"></div>
+            <div class="search-bar">
+              <input type="text" id="subscriber-search" placeholder="Search by Name, Email, or Phone..." onkeypress="if(event.key==='Enter') loadSubscribers(document.getElementById('subscriber-search').value)">
+              <button onclick="loadSubscribers(document.getElementById('subscriber-search').value)">Search</button>
+              <button onclick="loadSubscribers('')" style="background: #64748b; color: #fff;">Clear</button>
+              <button onclick="exportSubscriberData()" style="background: #22c55e; color: #fff;">Export CSV</button>
+            </div>
+            <table class="subscriber-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Plan</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subscriber-list"></tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2>Add New Subscriber</h2>
+            <form id="add-subscriber-form">
+              <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Member's full name" required minlength="2" maxlength="100">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="Member's email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Member's phone number" required pattern="[0-9+\-\s()]{8,20}">
+              </div>
+              <div class="form-group">
+                <label for="plan">Plan:</label>
+                <select id="plan" name="plan" required>
+                  <option value="">-- Select Plan --</option>
+                  <option value="Basic Plan">Basic Plan</option>
+                  <option value="Standard Plan">Standard Plan</option>
+                  <option value="Premium Plan">Premium Plan</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="subDate">Subscription Date:</label>
+                <input type="date" id="subDate" name="subDate" required>
+              </div>
+              <div class="form-group">
+                <label for="endDate">End Date (Estimated):</label>
+                <input type="date" id="endDate" name="endDate" required>
+              </div>
+              <button type="submit" class="cta-button">Add Subscriber</button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact-view" class="container hidden">
+    <div class="card" style="max-width: 800px; margin: 0 auto;">
+      <h2>Contact Messages</h2>
+      <div id="contact-panel-message" class="message hidden"></div>
+      <div id="contact-messages-list"></div>
+      <div class="flex-row" style="margin-top: 20px; gap: 12px;">
+        <button class="cta-button" onclick="loadContactMessages()" style="background: #3b82f6;">Refresh Messages</button>
+        <button class="cta-button" onclick="showDashboard()" style="background: var(--secondary);">Back to Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeConfirmModal()">&times;</span>
+      <h3>Confirmation Required</h3>
+      <p id="confirm-modal-text"></p>
+      <div class="flex-row" style="margin-top: 30px;">
+        <button class="cta-button" onclick="confirmAction(false)" style="background: #ef4444;">Cancel</button>
+        <button class="cta-button" onclick="confirmAction(true)" style="background: #22c55e;">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="message-detail-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" onclick="closeMessageDetailModal()">&times;</span>
+      <h3>Contact Message Detail</h3>
+      <div style="margin-bottom: 20px;">
+        <p><strong>From:</strong> <span id="detail-name"></span></p>
+        <p><strong>Email:</strong> <span id="detail-email"></span></p>
+        <p><strong>Subject:</strong> <span id="detail-subject"></span></p>
+      </div>
+      <p><strong>Message:</strong></p>
+      <p id="detail-message" style="background: var(--input-bg); padding: 15px; border-radius: 10px; margin-top: 10px; white-space: pre-wrap;"></p>
+      <div class="flex-row" style="margin-top: 30px;">
+        <button class="cta-button" onclick="deleteContactMessageFromModal()" style="background: #ef4444;">Mark as Read & Delete</button>
+        <button class="cta-button" onclick="closeMessageDetailModal()" style="background: #64748b;">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCE-h1WtHxE6ayl-08GNP1N7e5QhE6CUKs",
+      authDomain: "infinitygym-5d91d.firebaseapp.com",
+      projectId: "infinitygym-5d91d",
+      storageBucket: "infinitygym-5d91d.firebasestorage.app",
+      messagingSenderId: "862120320859",
+      appId: "1:862120320859:web:14739fb29c82eff7ef047e",
+      measurementId: "G-RRJN1DH8EC"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // EmailJS Configuration - REPLACE WITH YOUR CREDENTIALS
+    const EMAILJS_CONFIG = {
+      serviceID: 'service_ad41xmi',      // Your EmailJS Service ID
+      templateID: 'template_hntg2w7',    // Your EmailJS Template ID
+      publicKey: 'KtOP8H1TDmMohsATQ'     // Your EmailJS Public Key
+    };
+    
+    // Initialize EmailJS
+    (function() {
+      if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
+        emailjs.init(EMAILJS_CONFIG.publicKey);
+        console.log('EmailJS initialized successfully');
+      } else {
+        console.warn('EmailJS not configured. Please add your credentials.');
+      }
+    })();
+
+    // Admin Credentials (In a real app, this should be secured server-side)
+    // TODO: Replace with Firebase Authentication for production use
+    const ADMIN_USERNAME = 'admin';
+    const ADMIN_PASSWORD = 'password';
+    const DASHBOARD_KEY = 'admin-logged-in';
+    
+    // Security: Rate limiting for login attempts
+    let loginAttempts = 0;
+    const MAX_LOGIN_ATTEMPTS = 5;
+    let loginLockoutTime = null;
+
+    // Global Data
+    let subscribers = [];
+    let allSubscribers = [];
+    let filteredSubscribers = [];
+    let contactMessages = [];
+    let messageToViewId = null;
+
+
+    // Utility Functions
+    function getSubscriptionStatus(subDateStr, endDateStr, currentStatus) {
+      const today = new Date();
+      const endDate = new Date(endDateStr);
+      const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+
+      let status = currentStatus;
+      let statusClass = 'status-active';
+
+      if (daysLeft < 0) {
+        status = 'Expired';
+        statusClass = 'status-expired';
+      } else if (daysLeft <= 7) {
+        status = 'Expiring Soon';
+        statusClass = 'status-expiring';
+      } else {
+        status = 'Active';
+        statusClass = 'status-active';
+      }
+
+      return { status, statusClass, daysLeft };
+    }
+
+    function showMessage(containerId, message, type) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.classList.remove('hidden');
+        container.className = `message ${type}`;
+        container.textContent = message;
+        setTimeout(() => {
+          container.classList.add('hidden');
+          container.textContent = '';
+        }, 5000);
+      }
+    }
+
+    // --- View Management Functions ---
+
+    function setActiveNav(activeId) {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      document.getElementById(activeId).classList.add('active');
+    }
+
+    function showLogin() {
+      document.getElementById('auth-panel').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('contact-view').classList.add('hidden');
+      document.getElementById('login-message').classList.add('hidden');
+    }
+
+    window.showDashboard = async function(e) {
+      if (e) e.preventDefault();
+      document.getElementById('auth-panel').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      document.getElementById('contact-view').classList.add('hidden');
+
+      setActiveNav('nav-dashboard');
+
+      await loadSubscribersFromFirebase();
+    }
+
+    window.showContactMessagesView = async function(e) {
+      if (e) e.preventDefault();
+      document.getElementById('auth-panel').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('contact-view').classList.remove('hidden');
+
+      setActiveNav('nav-contacts');
+
+      await loadContactMessagesFromFirebase();
+    }
+    
+    // --- Authentication ---
+
+    window.login = function() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const messageDiv = document.getElementById('login-message');
+      
+      // Input validation
+      if (!username || !password) {
+        messageDiv.textContent = 'Please enter both username and password.';
+        messageDiv.classList.remove('hidden');
+        messageDiv.className = 'message error';
+        return;
+      }
+      
+      // Check rate limiting
+      if (loginLockoutTime && Date.now() < loginLockoutTime) {
+        const remainingTime = Math.ceil((loginLockoutTime - Date.now()) / 1000);
+        messageDiv.textContent = `Too many failed attempts. Try again in ${remainingTime} seconds.`;
+        messageDiv.classList.remove('hidden');
+        messageDiv.className = 'message error';
+        return;
+      }
+
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        // Reset login attempts on success
+        loginAttempts = 0;
+        loginLockoutTime = null;
+        sessionStorage.setItem(DASHBOARD_KEY, 'true');
+        showDashboard();
+      } else {
+        loginAttempts++;
+        
+        if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+          loginLockoutTime = Date.now() + 30000; // 30 second lockout
+          messageDiv.textContent = 'Too many failed attempts. Locked out for 30 seconds.';
+        } else {
+          messageDiv.textContent = `Invalid username or password. (${MAX_LOGIN_ATTEMPTS - loginAttempts} attempts remaining)`;
+        }
+        
+        messageDiv.classList.remove('hidden');
+        messageDiv.className = 'message error';
+        
+        // Clear password field on failed attempt
+        document.getElementById('password').value = '';
+      }
+    }
+
+    window.logout = function() {
+      sessionStorage.removeItem(DASHBOARD_KEY);
+      showLogin();
+    }
+
+    // --- Firebase Operations: Subscribers ---
+
+    async function loadSubscribersFromFirebase() {
+      try {
+        const snapshot = await db.collection('subscribers')
+          .orderBy('subDate', 'desc')
+          .get();
+        subscribers = [];
+        snapshot.forEach(doc => {
+          subscribers.push({ id: doc.id, ...doc.data() });
+        });
+        allSubscribers = [...subscribers];
+        console.log(`Loaded ${subscribers.length} subscribers from Firebase`);
+        loadSubscribers();
+      } catch (error) {
+        console.error('Error loading subscribers:', error);
+      }
+    }
+
+    async function saveSubscriberToFirebase(subscriberData) {
+      try {
+        const docRef = await db.collection('subscribers').add(subscriberData);
+        subscriberData.id = docRef.id;
+        console.log('Subscriber added to Firebase:', docRef.id);
+        return subscriberData;
+      } catch (error) {
+        console.error('Error adding subscriber:', error);
+        return null;
+      }
+    }
+
+    async function updateSubscriberInFirebase(subscriberId, subscriberData) {
+      try {
+        await db.collection('subscribers').doc(subscriberId).set(subscriberData);
+        console.log('Subscriber updated in Firebase:', subscriberId);
+        return true;
+      } catch (error) {
+        console.error('Error updating subscriber:', error);
+        return false;
+      }
+    }
+
+    async function deleteSubscriberFromFirebase(subscriberId) {
+      try {
+        await db.collection('subscribers').doc(subscriberId).delete();
+        console.log('Subscriber deleted from Firebase:', subscriberId);
+        return true;
+      } catch (error) {
+        console.error('Error deleting subscriber:', error);
+        return false;
+      }
+    }
+
+    // --- Firebase Operations: Messages ---
+
+    async function loadContactMessagesFromFirebase() {
+      try {
+        const snapshot = await db.collection('contactMessages')
+          .orderBy('timestamp', 'desc')
+          .get();
+        contactMessages = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          contactMessages.push({ 
+            id: doc.id, 
+            ...data, 
+            timestamp: data.timestamp ? data.timestamp.toDate().toISOString() : new Date().toISOString() 
+          });
+        });
+        console.log(`Loaded ${contactMessages.length} messages from Firebase`);
+        displayContactMessages();
+      } catch (error) {
+        console.error('Error loading messages:', error);
+        showMessage('contact-panel-message', 'Error loading messages from database.', 'error');
+      }
+    }
+
+    window.loadContactMessages = () => {
+        loadContactMessagesFromFirebase();
+    }
+
+
+    async function deleteContactMessageFromFirebase(messageId) {
+      try {
+        await db.collection('contactMessages').doc(messageId).delete();
+        console.log('Contact message deleted from Firebase:', messageId);
+        return true;
+      } catch (error) {
+        console.error('Error deleting message:', error);
+        return false;
+      }
+    }
+
+    // --- Modal Confirmation System ---
+    let confirmationResolver = null;
+
+    function showConfirmModal(message, callback) {
+      document.getElementById('confirm-modal-text').innerHTML = message;
+      document.getElementById('confirm-modal').style.display = 'block';
+      return new Promise(resolve => {
+        confirmationResolver = resolve;
+        window.confirmAction = (result) => {
+          closeConfirmModal();
+          callback(result);
+        };
+      });
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-modal').style.display = 'none';
+      confirmationResolver = null;
+    }
+
+    window.confirmAction = (result) => {
+      if(confirmationResolver) {
+        confirmationResolver(result);
+      }
+    };
+
+    // --- Subscriber List and Form Logic ---
+
+    // Add Subscriber Form Handler
+    document.getElementById('add-subscriber-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const newSubscriber = {
+        fullName: form.fullName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        plan: form.plan.value,
+        subDate: form.subDate.value,
+        endDate: form.endDate.value,
+        status: 'Active',
+      };
+
+      showMessage('add-message', 'Saving subscriber...', 'success');
+      const savedSubscriber = await saveSubscriberToFirebase(newSubscriber);
+      
+      if (savedSubscriber) {
+        subscribers.push(savedSubscriber);
+        loadSubscribers();
+        form.reset();
+        showMessage('add-message', '✅ Subscriber added successfully!', 'success');
+        
+
+      } else {
+        showMessage('add-message', 'Error adding subscriber.', 'error');
+      }
+    });
+
+    window.loadSubscribers = (searchTerm = '') => {
+      const list = document.getElementById('subscriber-list');
+      list.innerHTML = '';
+      const normalizedTerm = searchTerm.toLowerCase();
+
+      filteredSubscribers = subscribers.filter(sub => 
+        sub.fullName.toLowerCase().includes(normalizedTerm) || 
+        sub.email.toLowerCase().includes(normalizedTerm) || 
+        sub.phone.includes(normalizedTerm)
+      ).sort((a, b) => new Date(b.subDate) - new Date(a.subDate));
+
+      filteredSubscribers.forEach(sub => {
+        const { status, statusClass } = getSubscriptionStatus(sub.subDate, sub.endDate, sub.status);
+        
+        const row = list.insertRow();
+        row.innerHTML = `
+          <td>${sub.fullName}</td>
+          <td>${sub.plan}</td>
+          <td>${sub.endDate}</td>
+          <td class="${statusClass}">${status}</td>
+          <td>
+            <button onclick="editSubscriber('${sub.id}')" class="btn-edit">Edit</button>
+            <button onclick="deleteSubscriber('${sub.id}')" class="btn-delete">Delete</button>
+          </td>
+        `;
+      });
+    }
+
+    window.deleteSubscriber = (id) => {
+      showConfirmModal('Are you sure you want to permanently delete this subscriber?', async (confirmed) => {
+        if (confirmed) {
+          const deleted = await deleteSubscriberFromFirebase(id);
+          if (deleted) {
+            subscribers = subscribers.filter(sub => sub.id !== id);
+            loadSubscribers();
+            showMessage('add-message', 'Subscriber deleted successfully.', 'success');
+          } else {
+            showMessage('add-message', 'Error deleting subscriber.', 'error');
+          }
+        }
+      });
+    }
+
+    window.editSubscriber = (id) => {
+      const sub = subscribers.find(s => s.id === id);
+      if (!sub) return;
+
+      showConfirmModal(`
+        <p style="font-family: 'Shrikhand', Helvetica; color: var(--primary); font-size: 1.2em; margin-bottom: 10px;">Edit ${sub.fullName}</p>
+        <div class="form-group">
+          <label for="modal-fullName">Full Name:</label>
+          <input type="text" id="modal-fullName" value="${sub.fullName}" required>
+        </div>
+        <div class="form-group">
+          <label for="modal-email">Email:</label>
+          <input type="email" id="modal-email" value="${sub.email}" required>
+        </div>
+        <div class="form-group">
+          <label for="modal-phone">Phone:</label>
+          <input type="tel" id="modal-phone" value="${sub.phone}" required>
+        </div>
+        <div class="form-group">
+          <label for="modal-plan">Plan:</label>
+          <select id="modal-plan" required>
+            <option value="Basic Plan" ${sub.plan === 'Basic Plan' ? 'selected' : ''}>Basic Plan</option>
+            <option value="Standard Plan" ${sub.plan === 'Standard Plan' ? 'selected' : ''}>Standard Plan</option>
+            <option value="Premium Plan" ${sub.plan === 'Premium Plan' ? 'selected' : ''}>Premium Plan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="modal-subDate">Subscription Date:</label>
+          <input type="date" id="modal-subDate" value="${sub.subDate}" required>
+        </div>
+        <div class="form-group">
+          <label for="modal-endDate">End Date:</label>
+          <input type="date" id="modal-endDate" value="${sub.endDate}" required>
+        </div>
+      `, async (confirmed) => {
+        if (confirmed) {
+          sub.fullName = document.getElementById('modal-fullName').value;
+          sub.email = document.getElementById('modal-email').value;
+          sub.phone = document.getElementById('modal-phone').value;
+          sub.plan = document.getElementById('modal-plan').value;
+          sub.subDate = document.getElementById('modal-subDate').value;
+          sub.endDate = document.getElementById('modal-endDate').value;
+          
+          const { status } = getSubscriptionStatus(sub.subDate, sub.endDate, sub.status);
+          sub.status = status;
+          
+          const updated = await updateSubscriberInFirebase(sub.id, sub);
+          if (updated) {
+            loadSubscribers();
+            showMessage('add-message', `Subscriber ${sub.fullName} updated successfully.`, 'success');
+          } else {
+            showMessage('add-message', 'Error updating subscriber.', 'error');
+          }
+        }
+      });
+    }
+
+    // Export Data
+    window.exportSubscriberData = () => {
+      if (subscribers.length === 0) {
+        showMessage('add-message', 'No data to export.', 'error');
+        return;
+      }
+      const headers = ["ID", "Name", "Email", "Phone", "Plan", "Subscription Date", "End Date", "Status"];
+      const dataToExport = subscribers.map(sub => {
+        const { status } = getSubscriptionStatus(sub.subDate, sub.endDate, sub.status);
+        return [
+          sub.id,
+          sub.fullName,
+          sub.email,
+          sub.phone,
+          sub.plan,
+          sub.subDate,
+          sub.endDate,
+          status
+        ];
+      });
+
+      let csvContent = "data:text/csv;charset=utf-8," + headers.map(h => `"${h}"`).join(",") + "\n" + dataToExport.map(e => e.map(i => `"${i}"`).join(",")).join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "infinity_gym_subscribers.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showMessage('add-message', 'Subscriber data exported successfully.', 'success');
+    }
+
+    // --- Contact Messages Logic ---
+    function displayContactMessages() {
+      const list = document.getElementById('contact-messages-list');
+      list.innerHTML = '';
+
+      if (contactMessages.length === 0) {
+        list.innerHTML = `<p style="text-align: center; color: #aaa; padding: 20px;">No contact messages received.</p>`;
+        return;
+      }
+
+      contactMessages.forEach(msg => {
+        const item = document.createElement('div');
+        item.className = 'contact-message-item';
+        item.innerHTML = `
+          <div class="contact-info">
+            <p class="contact-name">${msg.name || 'Anonymous'}</p>
+            <p style="font-size: 0.9em; color: #999;">${new Date(msg.timestamp).toLocaleString()}</p>
+          </div>
+          <button class="btn-view-msg" onclick="viewMessageDetail('${msg.id}')">View</button>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    window.viewMessageDetail = function(messageId) {
+      const message = contactMessages.find(msg => msg.id === messageId);
+      if (!message) return;
+
+      messageToViewId = messageId;
+      document.getElementById('detail-subject').textContent = message.subject || 'N/A';
+      document.getElementById('detail-name').textContent = message.name || 'N/A';
+      document.getElementById('detail-email').textContent = message.email || 'N/A';
+      document.getElementById('detail-message').textContent = message.message || 'No detailed message provided.'; 
+      
+      document.getElementById('message-detail-modal').style.display = 'block';
+    }
+
+    window.closeMessageDetailModal = function() {
+      document.getElementById('message-detail-modal').style.display = 'none';
+      messageToViewId = null;
+    }
+
+    window.deleteContactMessageFromModal = async () => {
+      if (!messageToViewId) return;
+
+      showConfirmModal('Mark this message as read and permanently delete it?', async (confirmed) => {
+        if (confirmed) {
+          const deleted = await deleteContactMessageFromFirebase(messageToViewId);
+          if (deleted) {
+            contactMessages = contactMessages.filter(msg => msg.id !== messageToViewId);
+            displayContactMessages();
+            closeMessageDetailModal();
+            showMessage('contact-panel-message', 'Message deleted successfully.', 'success');
+          } else {
+            showMessage('contact-panel-message', 'Error deleting message.', 'error');
+          }
+        }
+      });
+    }
+
+    // --- Initialisation ---
+
+    // Debounce function for search input
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    function initApp() {
+        // Attach navigation handlers
+        document.getElementById('nav-dashboard').addEventListener('click', showDashboard);
+        document.getElementById('nav-contacts').addEventListener('click', showContactMessagesView);
+        
+        // Add search input event listener for real-time search with debounce
+        const searchInput = document.getElementById('subscriber-search');
+        if (searchInput) {
+            const debouncedSearch = debounce(function() {
+                loadSubscribers(searchInput.value);
+            }, 300);
+            
+            searchInput.addEventListener('input', debouncedSearch);
+        }
+        
+        // Check login state on load
+        if (sessionStorage.getItem(DASHBOARD_KEY) === 'true') {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    }
+    
+    // Start the application
+    initApp();
+  </script>
+</body>
+</html>

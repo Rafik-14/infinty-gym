@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Infinity Gym - API Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 30px;
+        }
+        .class-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .class-name {
+            color: #007bff;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .method {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .method-name {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        .method-description {
+            margin: 10px 0;
+            color: #6c757d;
+        }
+        .parameter {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        .parameter-name {
+            font-weight: bold;
+        }
+        .returns {
+            margin: 10px 0;
+            font-style: italic;
+        }
+        pre {
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        code {
+            font-family: 'Courier New', Consolas, monospace;
+        }
+        .comment {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Infinity Gym - API Documentation</h1>
+        <p>Class documentation for the Gym Management System</p>
+    </div>
+
+    <div class="class-section">
+        <h2 class="class-name">Member Class</h2>
+        <p>Represents a gym member with personal information and membership details.</p>
+        
+        <div class="method">
+            <div class="method-name">constructor(id, firstName, lastName, email, phoneNumber, joinDate, membershipType)</div>
+            <div class="method-description">Create a member.</div>
+            <div class="parameter"><span class="parameter-name">id</span> (string): The unique identifier for the member</div>
+            <div class="parameter"><span class="parameter-name">firstName</span> (string): The member's first name</div>
+            <div class="parameter"><span class="parameter-name">lastName</span> (string): The member's last name</div>
+            <div class="parameter"><span class="parameter-name">email</span> (string): The member's email address</div>
+            <div class="parameter"><span class="parameter-name">phoneNumber</span> (string): The member's phone number</div>
+            <div class="parameter"><span class="parameter-name">joinDate</span> (Date): The date the member joined the gym</div>
+            <div class="parameter"><span class="parameter-name">membershipType</span> (string): The type of membership (Basic, Standard, Premium)</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getFullName()</div>
+            <div class="method-description">Get the member's full name.</div>
+            <div class="returns">Returns: string - The member's full name</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getMembershipStatus()</div>
+            <div class="method-description">Get the member's membership status.</div>
+            <div class="returns">Returns: string - The membership status</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">renewMembership(newMembershipType)</div>
+            <div class="method-description">Renew the member's membership.</div>
+            <div class="parameter"><span class="parameter-name">newMembershipType</span> (string): The new membership type</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">cancelMembership()</div>
+            <div class="method-description">Cancel the member's membership.</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">toObject()</div>
+            <div class="method-description">Get member information as an object.</div>
+            <div class="returns">Returns: Object - The member's information</div>
+        </div>
+        
+        <pre><code><span class="comment">/**
+ * Represents a gym member
+ * @class
+ */</span>
+class Member {
+    <span class="comment">/**
+     * Create a member
+     * @param {string} id - The unique identifier for the member
+     * @param {string} firstName - The member's first name
+     * @param {string} lastName - The member's last name
+     * @param {string} email - The member's email address
+     * @param {string} phoneNumber - The member's phone number
+     * @param {Date} joinDate - The date the member joined the gym
+     * @param {string} membershipType - The type of membership (Basic, Standard, Premium)
+     */</span>
+    constructor(id, firstName, lastName, email, phoneNumber, joinDate, membershipType) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.joinDate = joinDate;
+        this.membershipType = membershipType;
+        this.isActive = true;
+    }
+
+    <span class="comment">/**
+     * Get the member's full name
+     * @returns {string} The member's full name
+     */</span>
+    getFullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+    <span class="comment">/**
+     * Get the member's membership status
+     * @returns {string} The membership status
+     */</span>
+    getMembershipStatus() {
+        return this.isActive ? 'Active' : 'Inactive';
+    }
+
+    <span class="comment">/**
+     * Renew the member's membership
+     * @param {string} newMembershipType - The new membership type
+     * @returns {void}
+     */</span>
+    renewMembership(newMembershipType) {
+        this.membershipType = newMembershipType;
+        this.isActive = true;
+    }
+
+    <span class="comment">/**
+     * Cancel the member's membership
+     * @returns {void}
+     */</span>
+    cancelMembership() {
+        this.isActive = false;
+    }
+
+    <span class="comment">/**
+     * Get member information as an object
+     * @returns {Object} The member's information
+     */</span>
+    toObject() {
+        return {
+            id: this.id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            phoneNumber: this.phoneNumber,
+            joinDate: this.joinDate,
+            membershipType: this.membershipType,
+            isActive: this.isActive
+        };
+    }
+}
+
+<span class="comment">// Make the class available globally in the browser</span>
+if (typeof window !== 'undefined') {
+    window.Member = Member;
+}</code></pre>
+    </div>
+
+    <div class="class-section">
+        <h2 class="class-name">Membership Class</h2>
+        <p>Represents a membership plan with features, pricing, and restrictions.</p>
+        
+        <div class="method">
+            <div class="method-name">constructor(type, monthlyFee, features, restrictions)</div>
+            <div class="method-description">Create a membership plan.</div>
+            <div class="parameter"><span class="parameter-name">type</span> (string): The membership type (Basic, Standard, Premium)</div>
+            <div class="parameter"><span class="parameter-name">monthlyFee</span> (number): The monthly fee in DA (Algerian Dinar)</div>
+            <div class="parameter"><span class="parameter-name">features</span> (Array&lt;string&gt;): List of features included in this membership</div>
+            <div class="parameter"><span class="parameter-name">restrictions</span> (Object): Optional restrictions for this membership</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getFormattedFee()</div>
+            <div class="method-description">Get the formatted monthly fee.</div>
+            <div class="returns">Returns: string - The formatted fee (e.g., "2500DA/month")</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">hasFeature(feature)</div>
+            <div class="method-description">Check if the membership includes a specific feature.</div>
+            <div class="parameter"><span class="parameter-name">feature</span> (string): The feature to check for</div>
+            <div class="returns">Returns: boolean - Whether the feature is included</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">addFeature(feature)</div>
+            <div class="method-description">Add a new feature to the membership.</div>
+            <div class="parameter"><span class="parameter-name">feature</span> (string): The feature to add</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">removeFeature(feature)</div>
+            <div class="method-description">Remove a feature from the membership.</div>
+            <div class="parameter"><span class="parameter-name">feature</span> (string): The feature to remove</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">calculateTotalCost(months)</div>
+            <div class="method-description">Calculate the total cost for a given number of months.</div>
+            <div class="parameter"><span class="parameter-name">months</span> (number): The number of months</div>
+            <div class="returns">Returns: number - The total cost</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">toObject()</div>
+            <div class="method-description">Get membership information as an object.</div>
+            <div class="returns">Returns: Object - The membership's information</div>
+        </div>
+        
+        <pre><code><span class="comment">/**
+ * Represents a membership plan
+ * @class
+ */</span>
+class Membership {
+    <span class="comment">/**
+     * Create a membership plan
+     * @param {string} type - The membership type (Basic, Standard, Premium)
+     * @param {number} monthlyFee - The monthly fee in DA (Algerian Dinar)
+     * @param {Array&lt;string&gt;} features - List of features included in this membership
+     * @param {Object} restrictions - Optional restrictions for this membership
+     */</span>
+    constructor(type, monthlyFee, features, restrictions = {}) {
+        this.type = type;
+        this.monthlyFee = monthlyFee;
+        this.features = features;
+        this.restrictions = restrictions;
+        this.isActive = true;
+    }
+
+    <span class="comment">/**
+     * Get the formatted monthly fee
+     * @returns {string} The formatted fee (e.g., "2500DA/month")
+     */</span>
+    getFormattedFee() {
+        return `${this.monthlyFee}DA/month`;
+    }
+
+    <span class="comment">/**
+     * Check if the membership includes a specific feature
+     * @param {string} feature - The feature to check for
+     * @returns {boolean} Whether the feature is included
+     */</span>
+    hasFeature(feature) {
+        return this.features.includes(feature);
+    }
+
+    <span class="comment">/**
+     * Add a new feature to the membership
+     * @param {string} feature - The feature to add
+     * @returns {void}
+     */</span>
+    addFeature(feature) {
+        if (!this.features.includes(feature)) {
+            this.features.push(feature);
+        }
+    }
+
+    <span class="comment">/**
+     * Remove a feature from the membership
+     * @param {string} feature - The feature to remove
+     * @returns {void}
+     */</span>
+    removeFeature(feature) {
+        const index = this.features.indexOf(feature);
+        if (index > -1) {
+            this.features.splice(index, 1);
+        }
+    }
+
+    <span class="comment">/**
+     * Calculate the total cost for a given number of months
+     * @param {number} months - The number of months
+     * @returns {number} The total cost
+     */</span>
+    calculateTotalCost(months) {
+        return this.monthlyFee * months;
+    }
+
+    <span class="comment">/**
+     * Get membership information as an object
+     * @returns {Object} The membership's information
+     */</span>
+    toObject() {
+        return {
+            type: this.type,
+            monthlyFee: this.monthlyFee,
+            features: this.features,
+            restrictions: this.restrictions,
+            isActive: this.isActive
+        };
+    }
+}
+
+<span class="comment">// Make the class available globally in the browser</span>
+if (typeof window !== 'undefined') {
+    window.Membership = Membership;
+}</code></pre>
+    </div>
+
+    <div class="class-section">
+        <h2 class="class-name">GymManager Class</h2>
+        <p>Manages the gym's members and memberships.</p>
+        
+        <div class="method">
+            <div class="method-name">constructor()</div>
+            <div class="method-description">Create a gym manager.</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">addMember(member)</div>
+            <div class="method-description">Add a new member to the gym.</div>
+            <div class="parameter"><span class="parameter-name">member</span> (Member): The member to add</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">removeMember(memberId)</div>
+            <div class="method-description">Remove a member from the gym.</div>
+            <div class="parameter"><span class="parameter-name">memberId</span> (string): The ID of the member to remove</div>
+            <div class="returns">Returns: boolean - Whether the member was successfully removed</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">findMemberById(memberId)</div>
+            <div class="method-description">Find a member by ID.</div>
+            <div class="parameter"><span class="parameter-name">memberId</span> (string): The ID of the member to find</div>
+            <div class="returns">Returns: Member|null - The member object or null if not found</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">addMembership(membership)</div>
+            <div class="method-description">Add a new membership plan.</div>
+            <div class="parameter"><span class="parameter-name">membership</span> (Membership): The membership plan to add</div>
+            <div class="returns">Returns: void</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getActiveMembers()</div>
+            <div class="method-description">Get all active members.</div>
+            <div class="returns">Returns: Array&lt;Member&gt; - Array of active members</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getMembershipByType(type)</div>
+            <div class="method-description">Get membership plan by type.</div>
+            <div class="parameter"><span class="parameter-name">type</span> (string): The membership type to find</div>
+            <div class="returns">Returns: Membership|null - The membership object or null if not found</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">getStatistics()</div>
+            <div class="method-description">Get statistics about the gym.</div>
+            <div class="returns">Returns: Object - Gym statistics</div>
+        </div>
+        
+        <div class="method">
+            <div class="method-name">toObject()</div>
+            <div class="method-description">Export all data as an object.</div>
+            <div class="returns">Returns: Object - All gym data</div>
+        </div>
+        
+        <pre><code><span class="comment">/**
+ * Manages the gym's members and memberships
+ * @class
+ */</span>
+class GymManager {
+    <span class="comment">/**
+     * Create a gym manager
+     */</span>
+    constructor() {
+        this.members = [];
+        this.memberships = [];
+    }
+
+    <span class="comment">/**
+     * Add a new member to the gym
+     * @param {Member} member - The member to add
+     * @returns {void}
+     */</span>
+    addMember(member) {
+        this.members.push(member);
+    }
+
+    <span class="comment">/**
+     * Remove a member from the gym
+     * @param {string} memberId - The ID of the member to remove
+     * @returns {boolean} Whether the member was successfully removed
+     */</span>
+    removeMember(memberId) {
+        const index = this.members.findIndex(member => member.id === memberId);
+        if (index > -1) {
+            this.members.splice(index, 1);
+            return true;
+        }
+        return false;
+    }
+
+    <span class="comment">/**
+     * Find a member by ID
+     * @param {string} memberId - The ID of the member to find
+     * @returns {Member|null} The member object or null if not found
+     */</span>
+    findMemberById(memberId) {
+        return this.members.find(member => member.id === memberId) || null;
+    }
+
+    <span class="comment">/**
+     * Add a new membership plan
+     * @param {Membership} membership - The membership plan to add
+     * @returns {void}
+     */</span>
+    addMembership(membership) {
+        this.memberships.push(membership);
+    }
+
+    <span class="comment">/**
+     * Get all active members
+     * @returns {Array&lt;Member&gt;} Array of active members
+     */</span>
+    getActiveMembers() {
+        return this.members.filter(member => member.isActive);
+    }
+
+    <span class="comment">/**
+     * Get membership plan by type
+     * @param {string} type - The membership type to find
+     * @returns {Membership|null} The membership object or null if not found
+     */</span>
+    getMembershipByType(type) {
+        return this.memberships.find(membership => membership.type === type) || null;
+    }
+
+    <span class="comment">/**
+     * Get statistics about the gym
+     * @returns {Object} Gym statistics
+     */</span>
+    getStatistics() {
+        return {
+            totalMembers: this.members.length,
+            activeMembers: this.getActiveMembers().length,
+            membershipPlans: this.memberships.length
+        };
+    }
+
+    <span class="comment">/**
+     * Export all data as an object
+     * @returns {Object} All gym data
+     */</span>
+    toObject() {
+        return {
+            members: this.members.map(member => member.toObject()),
+            memberships: this.memberships.map(membership => membership.toObject()),
+            statistics: this.getStatistics()
+        };
+    }
+}
+
+<span class="comment">// Make the class available globally in the browser</span>
+if (typeof window !== 'undefined') {
+    window.GymManager = GymManager;
+}</code></pre>
+    </div>
+</body>
+</html>

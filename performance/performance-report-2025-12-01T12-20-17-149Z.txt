@@ -1,0 +1,39 @@
+
+==================================================
+INFINITY GYM WEBSITE PERFORMANCE TEST REPORT
+==================================================
+
+Test Duration: 32 seconds
+Maximum Concurrent Users: 2
+
+REQUEST METRICS:
+----------------
+Total Requests: 28
+Successful Requests: 28
+Failed Requests: 0
+Success Rate: 100.00%
+
+RESPONSE TIME METRICS:
+----------------------
+Min: 1020ms
+Max: 2756ms
+Average: 1147.79ms
+Median: 1042ms
+90th Percentile: 1209ms
+95th Percentile: 1534ms
+
+PERFORMANCE GOAL COMPLIANCE:
+----------------------------
+Target Response Time: 2000ms
+Average Response Time: 1147.79ms
+95th Percentile Response Time: 1534ms
+Within Target (95% under 2s): YES
+
+ERROR SUMMARY:
+--------------
+Total Errors: 0
+Unique Errors: 0
+
+No errors recorded.
+
+==================================================

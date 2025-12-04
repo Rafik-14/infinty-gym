@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Infinity Gym | Your Fitness Journey Starts Here</title>
+    <meta name="description" content="Transform your fitness journey at Infinity Gym. Expert trainers, modern facilities, and flexible membership plans. Join our fitness family today!" />
+    <meta name="keywords" content="gym, fitness, workout, training, personal trainer, membership, wellness" />
+    <meta name="author" content="Ksantini Rafik" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Preconnect to external resources for faster loading -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Optimized font loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Fira+Sans+Extra+Condensed&family=Open+Sans&family=Noto+Sans:wght@400;500&family=Inter:wght@400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Fira+Sans+Extra+Condensed&family=Open+Sans&family=Noto+Sans:wght@400;500&family=Inter:wght@400&display=swap"></noscript>
+    
+    <!-- Optimized CSS loading -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"></noscript>
+    
+    <!-- Minified custom styles -->
+    <link rel="stylesheet" href="styles.min.css">
+</head>
+<body>
+    <div class="desktop-gym-website">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="logo" aria-label="Infinity Gym logo">INFINITY GYM</div>
+            <div class="navigations">
+                <a href="#home" class="nav-link" aria-label="Navigate to home section">Home</a>
+                <a href="#contact" class="nav-link" aria-label="Navigate to contact section">Contact</a>
+                <a href="#subscribe" class="nav-link" aria-label="Navigate to subscription plans">Subscribe</a>
+                <a href="admin.html" class="nav-link hidden" id="adminLink" aria-label="Admin panel access">ADMIN</a>
+            </div>
+            <button class="hero-CTA" onclick="window.location.href='#subscribe'" aria-label="Join Infinity Gym membership">Join Us</button>
+        </nav>
+
+        <section id="home" class="hero-section" aria-labelledby="hero-title">
+            <picture>
+                <source media="(max-width: 768px)" srcset="images/image1.jpg?width=768">
+                <source media="(max-width: 1024px)" srcset="images/image1.jpg?width=1024">
+                <img class="hero-image" src="images/image1.jpg" alt="Fitness hero - person training at Infinity Gym" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.background='linear-gradient(135deg, #1a0a04 0%, #2d1810 100%)';this.removeAttribute('src');" />
+            </picture>
+            <div class="hero-headlines">
+                <h1 id="hero-title" class="hero-title">Rise Together, Conquer Everything</h1>
+                <p class="hero-subtitle">Join a fitness family that celebrates your wins, pushes through your challenges, and never lets you settle for average.</p>
+            </div>
+            <div class="hero-cards">
+                <div class="hero-card">
+                    <div class="hero-card-number">5+</div>
+                    <div class="hero-card-text">Years Of excellence</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-card-number">4</div>
+                    <div class="hero-card-text">Expert Trainers</div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-card-number">500+</div>
+                    <div class="hero-card-text">Happy Members</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="facility-section" aria-labelledby="facility-title">
+            <h2 id="facility-title" class="facility-title">Our Facility</h2>
+            <p class="facility-subtitle">Explore our modern and fully equipped fitness center</p>
+            <div class="facility-gallery">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="images/image6.png?width=300">
+                    <img class="facility-image" src="images/image6.png" alt="Modern gym facility with equipment" loading="lazy" decoding="async" />
+                </picture>
+                <picture>
+                    <source media="(max-width: 768px)" srcset="images/image7.png?width=300">
+                    <img class="facility-image" src="images/image7.png" alt="Cardio training area" loading="lazy" decoding="async" />
+                </picture>
+                <picture>
+                    <source media="(max-width: 768px)" srcset="images/image5.jpg?width=300">
+                    <img class="facility-image" src="images/image5.jpg" alt="Weights and strength training zone" loading="lazy" decoding="async" />
+                </picture>
+            </div>
+        </section>
+
+        <section class="trainers-section" aria-labelledby="trainers-title">
+            <h2 id="trainers-title" class="trainers-title">Meet Our Trainers</h2>
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <img class="trainer-photo" src="images/image3.jpg" alt="Ronald Richards - Certified Strength Coach" loading="lazy" decoding="async" onerror="this.style.background='#2d1810';" />
+                        <div class="trainer-border"></div>
+                    </div>
+                    <div class="trainer-name">Ronald Richards</div>
+                    <div class="trainer-title">Certified Strength Coach</div>
+                    <p class="trainer-description">Specializing in powerlifting and functional training, Ronald helps members break plateaus and achieve peak physical condition with personalized programs.</p>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <img class="trainer-photo" src="images/image4.jpg" alt="Floyd Miles - Nutrition Specialist" loading="lazy" decoding="async" onerror="this.style.background='#2d1810';" />
+                        <div class="trainer-border"></div>
+                    </div>
+                    <div class="trainer-name">Floyd Miles</div>
+                    <div class="trainer-title">Nutrition Specialist</div>
+                    <p class="trainer-description">Floyd focuses on holistic health, combining effective workout routines with customized meal plans to ensure sustainable fat loss and muscle gain.</p>
+                </div>
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <img class="trainer-photo" src="images/Ellipse 1.png" alt="Esther Howard - Pilates & Yoga Master" loading="lazy" decoding="async" onerror="this.style.background='#2d1810';" />
+                        <div class="trainer-border"></div>
+                    </div>
+                    <div class="trainer-name">Esther Howard</div>
+                    <div class="trainer-title">Pilates & Yoga Master</div>
+                    <p class="trainer-description">Esther brings a wealth of knowledge in flexibility, mobility, and core strengthening, perfect for improving posture and preventing injury.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section" aria-labelledby="contact-title">
+            <div class="contact-left">
+                <h2 id="contact-title">Get In Touch</h2>
+                <p>Have a question about our services, plans, or facilities? Fill out the form or use the contact information below. We're here to help you start your fitness journey.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        123 Fitness Street, Wellness City, FT 12345
+                    </div>
+                    <div class="contact-item">
+                        +1 (555) 123-4567
+                    </div>
+                    <div class="contact-item">
+                        contact@gymcenter.com
+                    </div>
+                </div>
+            </div>
+            <div class="contact-right">
+                <div id="contactMessage" role="alert" aria-live="polite"></div>
+                <form class="contact-form" id="contactForm" aria-label="Contact form">
+                    <div class="form-group">
+                        <label for="contact-name">Full Name</label>
+                        <input type="text" id="contact-name" name="name" placeholder="Your full name" required aria-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" name="email" placeholder="Your email address" required aria-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-subject">Subject</label>
+                        <input type="text" id="contact-subject" name="subject" placeholder="Your message subject" required aria-required="true" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" placeholder="Your message" required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" aria-label="Send contact message">Send</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="subscribe" class="pricing-section" aria-labelledby="pricing-title">
+            <h2 id="pricing-title" class="pricing-title">Memberships plan</h2>
+            <p class="pricing-subtitle">Choose the plan that fits your fitness goals and start your journey with us today.</p>
+            <div id="subscriptionMessage" role="alert" aria-live="polite"></div>
+
+            <div class="subscription-form-container hidden" id="subscriptionFormContainer">
+                <form class="subscription-form" id="subscriptionForm" aria-label="Subscription form">
+                    <h3>Subscribe to <span id="formPlanName" style="color: var(--secondary);"></span></h3>
+                    <input type="hidden" name="plan" id="selectedPlan" value="">
+                    <div class="form-group">
+                        <label for="sub-name">Full Name</label>
+                        <input type="text" id="sub-name" name="name" placeholder="Your full name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub-email">Email Address</label>
+                        <input type="email" id="sub-email" name="email" placeholder="Your email address" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub-phone">Phone Number</label>
+                        <input type="tel" id="sub-phone" name="phone" placeholder="Your phone number" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="sub-duration">Subscription Duration</label>
+                        <select id="sub-duration" name="duration" required aria-required="true">
+                            <option value="">-- Select Duration --</option>
+                            <option value="1 month">1 Month</option>
+                            <option value="3 months">3 Months</option>
+                            <option value="6 months">6 Months</option>
+                            <option value="12 months">12 Months (Best Value)</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-button" aria-label="Confirm subscription and proceed to payment">Confirm & Pay</button>
+                        <button type="button" class="cancel-button" onclick="cancelSubscription()" aria-label="Cancel subscription form">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="pricing-cards" id="pricingCards">
+                <div class="pricing-card">
+                    <div class="plan-name">BASIC</div>
+                    <div class="plan-price">2000DA/<span>month</span></div>
+                    <div class="plan-features">
+                        <div class="feature-item">✓ Weight training equipment access</div>
+                        <div class="feature-item">✓ Locker room facilities</div>
+                        <div class="feature-item">✓ Basic gym amenities</div>
+                        <div class="feature-item">✓ Equipment orientation</div>
+                        <div class="feature-item">✓ Standard operating hours</div>
+                    </div>
+                    <button class="subscribe-button" onclick="showSubscriptionForm('Basic Plan')" aria-label="Subscribe to Basic Plan">Subscribe</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="plan-name">STANDARD</div>
+                    <div class="plan-price">2500DA/<span>month</span></div>
+                    <div class="plan-features">
+                        <div class="feature-item">✓ Full weight training access</div>
+                        <div class="feature-item">✓ Cardio machines access</div>
+                        <div class="feature-item">✓ Premium locker facilities</div>
+                        <div class="feature-item">✓ Equipment training session</div>
+                        <div class="feature-item">✓ Extended operating hours</div>
+                        <div class="feature-item">✓ Workout progress tracking</div>
+                    </div>
+                    <button class="subscribe-button" onclick="showSubscriptionForm('Standard Plan')" aria-label="Subscribe to Standard Plan">Subscribe</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="plan-name">PREMIUM</div>
+                    <div class="plan-price">3500DA/<span>month</span></div>
+                    <div class="plan-features">
+                        <div class="feature-item">✓ All Standard features included</div>
+                        <div class="feature-item">✓ Unlimited Group Classes access</div>
+                        <div class="feature-item">✓ Sauna and Wellness Area access</div>
+                        <div class="feature-item">✓ Personalized 1-on-1 Trainer Session (1/month)</div>
+                        <div class="feature-item">✓ 24/7 VIP Access</div>
+                        <div class="feature-item">✓ Nutrition Consulting Session (1/month)</div>
+                    </div>
+                    <button class="subscribe-button" onclick="showSubscriptionForm('Premium Plan')" aria-label="Subscribe to Premium Plan">Subscribe</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="get-started-section">
+            <div class="ready-image" data-bg="images/image8.jpg">
+                <div class="ready-content">
+                    <h2 style="color: var(--primary);">Ready to transform your fitness journey?</h2>
+                    <p style="font-size: 22px;">Join Our Gym today and take the first step towards a healthier, stronger you.</p>
+                </div>
+            </div>
+            <div class="info-cards">
+                <div class="info-card" data-bg="images/image2.jpg">
+                    <div>
+                        <h3>Hours of operation</h3>
+                        <p>Monday to Friday 5am to 10pm, Weekends 7am to 8pm</p>
+                    </div>
+                </div>
+                <div class="info-card" data-bg="images/map-image.jpg">
+                    <div>
+                        <h3>Click to get the location</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer" role="contentinfo">
+            <div class="footer-left">
+                <h3>Contact</h3>
+                <div class="footer-info">
+                    <p>123 Fitness Street, Wellness City, FT 12345</p>
+                    <p>+1 (555) 123-4567</p>
+                    <p>contact@gymcenter.com</p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-copyright">© 2025 Infinity Gym. All rights reserved.</div>
+                <div class="footer-copyright" style="margin-top: 16px;">Made by Ksantini Rafik</div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Load gym management classes -->
+    <script src="src/Member.js"></script>
+    <script src="src/Membership.js"></script>
+    <script src="src/GymManager.js"></script>
+    <script src="src/browser-example.js"></script>
+    
+    <!-- Firebase SDK - Load asynchronously -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js" defer></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCE-h1WtHxE6ayl-08GNP1N7e5QhE6CUKs",
+            authDomain: "infinitygym-5d91d.firebaseapp.com",
+            projectId: "infinitygym-5d91d",
+            storageBucket: "infinitygym-5d91d.firebasestorage.app",
+            messagingSenderId: "862120320859",
+            appId: "1:862120320859:web:14739fb29c82eff7ef047e",
+            measurementId: "G-RRJN1DH8EC"
+        };
+
+        // Initialize Firebase when DOM is ready
+        let db;
+        
+        // Defer initialization until after page load for better performance
+        window.addEventListener('load', function() {
+            initializeFirebase();
+        });
+        
+        function initializeFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    console.log('Firebase initialized successfully');
+                } else {
+                    console.warn('Firebase SDK not loaded yet, retrying...');
+                    setTimeout(initializeFirebase, 100);
+                }
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
+            }
+        }
+
+        // Save contact message to Firebase
+        async function saveContactMessageToFirebase(messageData) {
+            try {
+                const message = {
+                    id: Date.now().toString(),
+                    name: messageData.name || 'N/A',
+                    email: messageData.email || 'N/A',
+                    subject: messageData.subject || 'No Subject',
+                    message: messageData.message || 'No message content.',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
+                await db.collection('contactMessages').doc(message.id).set(message);
+                console.log('Contact message saved to Firebase:', message.id);
+                return true;
+            } catch (error) {
+                console.error('Error saving contact message:', error);
+                return false;
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Firebase
+            initializeFirebase();
+            
+            // Smooth scroll for nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    // Allow the admin.html link to navigate normally
+                    if (targetId === 'admin.html') {
+                        return; 
+                    }
+                    
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            // Secret key combination (Ctrl+Alt+A) to show the admin link
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.altKey && e.key.toUpperCase() === 'A') { 
+                    const adminLink = document.getElementById('adminLink');
+                    if (adminLink) {
+                        adminLink.classList.remove('hidden'); 
+                    }
+                }
+            });
+
+            // Initialize forms
+            initializeContactForm();
+            initializeSubscriptionForm();
+        });
+
+        // Contact Form Handler
+        function initializeContactForm() {
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => (data[key] = value));
+                    
+                    const messageDiv = document.getElementById('contactMessage');
+                    
+                    // Save to Firebase
+                    const saved = await saveContactMessageToFirebase(data);
+                    
+                    if (saved) {
+                        messageDiv.innerHTML = '<div class="message-display success">✅ Message sent successfully! We will get back to you soon.</div>';
+                        form.reset();
+                    } else {
+                        messageDiv.innerHTML = '<div class="message-display error">❌ Error sending your message. Please try again.</div>';
+                    }
+                    
+                    // Clear message after 5 seconds
+                    setTimeout(() => {
+                        messageDiv.innerHTML = '';
+                    }, 5000);
+                });
+            }
+        }
+
+        // Subscription Form Functions
+        function showSubscriptionForm(planName) {
+            const formContainer = document.getElementById('subscriptionFormContainer');
+            const pricingCards = document.getElementById('pricingCards');
+            const selectedPlanInput = document.getElementById('selectedPlan');
+            const formPlanNameDisplay = document.getElementById('formPlanName');
+            
+            if (formContainer && pricingCards && selectedPlanInput && formPlanNameDisplay) {
+                formPlanNameDisplay.textContent = planName;
+                selectedPlanInput.value = planName;
+                pricingCards.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+                
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function cancelSubscription() {
+            const pricingCards = document.getElementById('pricingCards');
+            const formContainer = document.getElementById('subscriptionFormContainer');
+            const subscriptionForm = document.getElementById('subscriptionForm');
+            const messageDiv = document.getElementById('subscriptionMessage');
+            
+            if (pricingCards && formContainer && subscriptionForm) {
+                formContainer.classList.add('hidden');
+                pricingCards.classList.remove('hidden');
+                subscriptionForm.reset();
+                if (messageDiv) {
+                    messageDiv.innerHTML = '';
+                }
+                pricingCards.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function initializeSubscriptionForm() {
+            const form = document.getElementById('subscriptionForm');
+            if (form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => (data[key] = value));
+                    
+                    const messageDiv = document.getElementById('subscriptionMessage');
+                    
+                    // For subscription requests, you might want to send via Web3Forms
+                    // and/or save to a different Firebase collection
+                    try {
+                        // Optional: Save subscription request to Firebase
+                        await db.collection('subscriptionRequests').add({
+                            ...data,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            status: 'pending'
+                        });
+                        
+                        messageDiv.innerHTML = '<div class="message-display success">✅ Subscription request sent! We will contact you shortly.</div>';
+                        form.reset();
+                        
+                        setTimeout(() => {
+                            messageDiv.innerHTML = '';
+                            cancelSubscription();
+                        }, 3000);
+                    } catch (error) {
+                        console.error('Subscription error:', error);
+                        messageDiv.innerHTML = '<div class="message-display error">❌ Error submitting your request. Please try again.</div>';
+                    }
+                });
+            }
+        }
+
+        // Make functions globally available
+        window.showSubscriptionForm = showSubscriptionForm;
+        window.cancelSubscription = cancelSubscription;
+        
+        // Lazy load background images
+        function lazyLoadBackgroundImages() {
+            const elements = document.querySelectorAll('[data-bg]');
+            elements.forEach(el => {
+                const bgUrl = el.getAttribute('data-bg');
+                if (bgUrl) {
+                    // Create new image to trigger loading
+                    const img = new Image();
+                    img.onload = function() {
+                        el.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${bgUrl}')`;
+                    };
+                    img.src = bgUrl;
+                }
+            });
+        }
+        
+        // Initialize background image loading after page load
+        window.addEventListener('load', function() {
+            lazyLoadBackgroundImages();
+        });
+        
+        // Register service worker for offline support and caching
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+        
+    </script>
+    <script>
+        // Scroll animation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all elements that should animate on scroll
+            const animateElements = document.querySelectorAll(
+                '.facility-section, .facility-image, .trainers-section, .trainer-card, .contact-section, .pricing-section, .pricing-card, .get-started-section, .info-card, .footer'
+            );
+            
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight * 0.9) &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Function to handle scroll animations
+            function handleScrollAnimations() {
+                animateElements.forEach(element => {
+                    if (isInViewport(element)) {
+                        element.classList.add('animate');
+                    }
+                });
+            }
+            
+            // Initial check in case elements are already in viewport
+            handleScrollAnimations();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScrollAnimations);
+            
+            // Add resize event listener to handle viewport changes
+            window.addEventListener('resize', handleScrollAnimations);
+        });
+    </script>
+</body>
+</html>
