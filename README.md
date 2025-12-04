@@ -6,7 +6,11 @@ A modern fitness center website built with HTML, CSS, and JavaScript.
 
 Infinity Gym is a responsive website for a fitness center that showcases membership plans, provides contact information, and offers subscription functionality. The site features smooth animations, a clean design, and mobile responsiveness.
 
-For complete project documentation, see [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md).
+## Documentation
+
+- [User Guide](docs/USER_GUIDE.md) - Complete guide for end users of the website
+- [Technical Documentation](docs/) - Developer documentation including class diagrams, data structures, and more
+- [Tests Documentation](TESTS-README.md) - Comprehensive guide to the testing suite
 
 ## Quick Start
 

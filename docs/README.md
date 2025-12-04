@@ -3,6 +3,10 @@
 ## Overview
 This folder contains the technical documentation for the Infinity Gym management system, including various diagrams and data structure definitions.
 
+## User Documentation
+
+For end-user documentation, please see the [User Guide](USER_GUIDE.md) which provides comprehensive instructions for using the Infinity Gym website.
+
 ## Documentation Files
 
 ### [Class Diagram](CLASS_DIAGRAM.md)
