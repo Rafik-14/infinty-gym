@@ -199,7 +199,7 @@
             <div class="pricing-cards" id="pricingCards">
                 <div class="pricing-card">
                     <div class="plan-name">BASIC</div>
-                    <div class="plan-price">2000DA/<span>month</span></div>
+                    <div class="plan-price">€15/<span>month</span></div>
                     <div class="plan-features">
                         <div class="feature-item">✓ Weight training equipment access</div>
                         <div class="feature-item">✓ Locker room facilities</div>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="pricing-card">
                     <div class="plan-name">STANDARD</div>
-                    <div class="plan-price">2500DA/<span>month</span></div>
+                    <div class="plan-price">€20/<span>month</span></div>
                     <div class="plan-features">
                         <div class="feature-item">✓ Full weight training access</div>
                         <div class="feature-item">✓ Cardio machines access</div>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="pricing-card">
                     <div class="plan-name">PREMIUM</div>
-                    <div class="plan-price">3500DA/<span>month</span></div>
+                    <div class="plan-price">€30/<span>month</span></div>
                     <div class="plan-features">
                         <div class="feature-item">✓ All Standard features included</div>
                         <div class="feature-item">✓ Unlimited Group Classes access</div>
@@ -282,6 +282,9 @@
     <script src="../js/GymManager.js"></script>
     <script src="../js/browser-example.js"></script>
     
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <!-- Firebase SDK - Load asynchronously -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js" defer></script>
@@ -304,6 +307,7 @@
         // Defer initialization until after page load for better performance
         window.addEventListener('load', function() {
             initializeFirebase();
+            initializeEmailJS();
         });
         
         function initializeFirebase() {
@@ -318,6 +322,18 @@
                 }
             } catch (error) {
                 console.error('Firebase initialization error:', error);
+            }
+        }
+        
+        // Initialize EmailJS
+        function initializeEmailJS() {
+            try {
+                // Initialize EmailJS with your public key
+                // Note: You'll need to sign up for EmailJS and get your own public key
+                emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Replace with your actual EmailJS public key
+                console.log('EmailJS initialized successfully');
+            } catch (error) {
+                console.error('EmailJS initialization error:', error);
             }
         }
 
@@ -338,6 +354,31 @@
                 return true;
             } catch (error) {
                 console.error('Error saving contact message:', error);
+                return false;
+            }
+        }
+
+        // Send subscription confirmation email
+        async function sendSubscriptionConfirmationEmail(subscriberData) {
+            try {
+                // Email template parameters
+                const templateParams = {
+                    to_name: subscriberData.name,
+                    to_email: subscriberData.email,
+                    plan_name: subscriberData.plan,
+                    duration: subscriberData.duration,
+                    phone: subscriberData.phone,
+                    from_name: "Infinity Gym Team"
+                };
+                
+                // Send email using EmailJS
+                // Note: You'll need to create an email template in your EmailJS account
+                // and replace 'YOUR_TEMPLATE_ID' with your actual template ID
+                const response = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                console.log('Subscription confirmation email sent successfully:', response);
+                return true;
+            } catch (error) {
+                console.error('Error sending subscription confirmation email:', error);
                 return false;
             }
         }
@@ -467,7 +508,15 @@
                             status: 'pending'
                         });
                         
-                        messageDiv.innerHTML = '<div class="message-display success">✅ Subscription request sent! We will contact you shortly.</div>';
+                        // Send confirmation email to subscriber
+                        const emailSent = await sendSubscriptionConfirmationEmail(data);
+                        
+                        if (emailSent) {
+                            messageDiv.innerHTML = '<div class="message-display success">✅ Subscription confirmed! A confirmation email has been sent to ' + data.email + '.</div>';
+                        } else {
+                            messageDiv.innerHTML = '<div class="message-display success">✅ Subscription request sent! We will contact you shortly. (Note: Confirmation email could not be sent)</div>';
+                        }
+                        
                         form.reset();
                         
                         setTimeout(() => {

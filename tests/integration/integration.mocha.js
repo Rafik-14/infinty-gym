@@ -14,13 +14,13 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the HTML file
-const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, '../../html/index.html'), 'utf8');
 
 // Read the JavaScript files
-const memberJs = fs.readFileSync(path.resolve(__dirname, './Member.js'), 'utf8');
-const membershipJs = fs.readFileSync(path.resolve(__dirname, './Membership.js'), 'utf8');
-const gymManagerJs = fs.readFileSync(path.resolve(__dirname, './GymManager.js'), 'utf8');
-const browserExampleJs = fs.readFileSync(path.resolve(__dirname, './browser-example.js'), 'utf8');
+const memberJs = fs.readFileSync(path.resolve(__dirname, '../../js/Member.js'), 'utf8');
+const membershipJs = fs.readFileSync(path.resolve(__dirname, '../../js/Membership.js'), 'utf8');
+const gymManagerJs = fs.readFileSync(path.resolve(__dirname, '../../js/GymManager.js'), 'utf8');
+const browserExampleJs = fs.readFileSync(path.resolve(__dirname, '../../js/browser-example.js'), 'utf8');
 
 describe('Infinity Gym Website Integration', function() {
   before(function() {

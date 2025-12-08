@@ -39,3 +39,9 @@ Thumbs.db
 # Temporary folders
 tmp/
 temp/
+
+# Embedded git repository
+infinity-gym-updated/
+
+# Performance reports
+performance-report-*.txt

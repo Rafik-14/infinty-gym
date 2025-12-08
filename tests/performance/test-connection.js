@@ -5,7 +5,7 @@
 const http = require('http');
 
 // Test if we can connect to the server
-const req = http.get('http://localhost:3000', (res) => {
+const req = http.get('http://localhost:3002', (res) => {
   console.log(`Server responded with status code: ${res.statusCode}`);
   
   if (res.statusCode === 200) {

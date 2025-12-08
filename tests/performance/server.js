@@ -7,7 +7,7 @@ const path = require('path');
 const url = require('url');
 
 // Port for the local server
-const PORT = 3000;
+const PORT = 3002;
 
 // MIME types for static files
 const MIME_TYPES = {
@@ -34,8 +34,16 @@ const server = http.createServer((req, res) => {
   }
   
   // Construct the file path
-  const filePath = path.join(process.cwd(), pathname);
+  let filePath = path.join(process.cwd(), pathname);
   
+  // For HTML files, check if they exist in the html directory
+  if (pathname.endsWith('.html') || pathname === '/index.html') {
+    const htmlFilePath = path.join(process.cwd(), 'html', pathname === '/' ? 'index.html' : pathname.substring(1));
+    if (fs.existsSync(htmlFilePath)) {
+      filePath = htmlFilePath;
+    }
+  }
+
   // Security check to prevent directory traversal
   if (!filePath.startsWith(process.cwd())) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });

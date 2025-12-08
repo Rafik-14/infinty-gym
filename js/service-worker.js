@@ -3,7 +3,11 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/styles.min.css',
-  '/new-gym.js',
+  '/js/Member.js',
+  '/js/Membership.js',
+  '/js/GymManager.js',
+  '/js/browser-example.js',
+  '/js/service-worker.js',
   'https://fonts.googleapis.com/css2?family=Shrikhand&family=Fira+Sans+Extra+Condensed&family=Open+Sans&family=Noto+Sans:wght@400;500&family=Inter:wght@400&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'
 ];

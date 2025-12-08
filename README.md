@@ -6,6 +6,46 @@ A modern fitness center website built with HTML, CSS, and JavaScript.
 
 Infinity Gym is a responsive website for a fitness center that showcases membership plans, provides contact information, and offers subscription functionality. The site features smooth animations, a clean design, and mobile responsiveness.
 
+## Project Structure
+
+```
+.
+├── html/
+│   ├── admin.html
+│   ├── api-documentation.html
+│   ├── case-study.html
+│   └── index.html
+├── js/
+│   ├── GymManager.js
+│   ├── Member.js
+│   ├── Membership.js
+│   ├── browser-example.js
+│   └── service-worker.js
+├── docs/
+│   ├── ACTIVITY_DIAGRAM.md
+│   ├── CLASS_DIAGRAM.md
+│   ├── DATA_STRUCTURES.md
+│   ├── ER_DIAGRAM.md
+│   ├── README.md
+│   ├── SEQUENCE_DIAGRAM.md
+│   ├── USER_GUIDE.md
+│   └── USE_CASE_DIAGRAM.md
+├── tests/
+│   ├── e2e/
+│   ├── integration/
+│   ├── performance/
+│   └── unit/
+├── performance/
+│   ├── README.md
+│   ├── package.json
+│   └── performance-report-2025-12-01T12-20-17-149Z.txt
+├── README.md
+├── TESTS-README.md
+├── manifest.json
+├── package-lock.json
+└── package.json
+```
+
 ## Documentation
 
 - [User Guide](docs/USER_GUIDE.md) - Complete guide for end users of the website
@@ -24,6 +64,8 @@ Infinity Gym is a responsive website for a fitness center that showcases members
 - JavaScript (ES6+)
 - Google Fonts (Poppins, Open Sans)
 - Font Awesome icons
+- Firebase (for data storage)
+- EmailJS (for email notifications)
 
 ## Getting Started
 
@@ -36,6 +78,13 @@ Infinity Gym is a responsive website for a fitness center that showcases members
 
 1. Clone the repository or download the ZIP file
 2. Open `index.html` in your web browser
+
+### Email Notifications Setup
+
+To enable email notifications for subscription forms:
+
+1. Follow the instructions in [EMAILJS_SETUP.md](EMAILJS_SETUP.md)
+2. Update the EmailJS configuration in `html/index.html` with your credentials
 
 ### Running Tests
 
@@ -56,6 +105,7 @@ npm run test:e2e
 npm run test:performance:start-server
 # Then, run the performance test in another terminal:
 npm run test:performance:run
+# Note: The server runs on port 3002 to avoid conflicts
 
 # Run simple integration tests
 npm test

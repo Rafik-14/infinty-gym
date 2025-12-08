@@ -39,7 +39,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display the correct page title', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -48,7 +48,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should have the main navigation menu', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -60,7 +60,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display the hero section with correct content', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -72,7 +72,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should have three membership plans displayed', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -83,7 +83,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display correct plan names', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -98,7 +98,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display correct pricing for each plan', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -106,17 +106,17 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
     await page.waitForSelector('.pricing-card', { timeout: 10000 });
     
     const basicPrice = await page.$eval('.pricing-card:first-child .plan-price', el => el.textContent);
-    expect(basicPrice).to.contain('2000DA');
+    expect(basicPrice).to.contain('€15');
     
     const standardPrice = await page.$eval('.pricing-card:nth-child(2) .plan-price', el => el.textContent);
-    expect(standardPrice).to.contain('2500DA');
+    expect(standardPrice).to.contain('€20');
     
     const premiumPrice = await page.$eval('.pricing-card:last-child .plan-price', el => el.textContent);
-    expect(premiumPrice).to.contain('3500DA');
+    expect(premiumPrice).to.contain('€30');
   });
 
   it('should have subscribe buttons for each plan', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -127,7 +127,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should have a working contact form', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -136,7 +136,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display trainer cards', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -147,7 +147,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display facility images', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -158,7 +158,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should display footer', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     
@@ -167,7 +167,7 @@ describe('Infinity Gym Website Comprehensive E2E Tests', function() {
   });
 
   it('should show subscription form when subscribe button is clicked', async function() {
-    await page.goto(`file://${__dirname}/../index.html`, { 
+    await page.goto(`file://${__dirname}/../../html/index.html`, { 
       waitUntil: 'domcontentloaded'
     });
     

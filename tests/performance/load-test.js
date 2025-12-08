@@ -19,9 +19,9 @@ const CONFIG = {
   THINK_TIME_MAX: 6000, // 6 seconds
   TARGET_RESPONSE_TIME: 2000, // 2 seconds
   PAGES_TO_TEST: [
-    'http://localhost:3000/',
-    'http://localhost:3000/admin.html',
-    'http://localhost:3000/api-documentation.html'
+    'http://localhost:3002/',
+    'http://localhost:3002/admin.html',
+    'http://localhost:3002/api-documentation.html'
   ]
 };
 
@@ -199,6 +199,25 @@ async function simulateUser(userId) {
 }
 
 /**
+ * Check if server is responding
+ */
+async function checkServer() {
+  return new Promise((resolve) => {
+    const req = http.get('http://localhost:3002/', (res) => {
+      resolve(res.statusCode === 200);
+    }).on('error', () => {
+      resolve(false);
+    });
+    
+    // Set a timeout for the request
+    req.setTimeout(5000, () => {
+      req.destroy();
+      resolve(false);
+    });
+  });
+}
+
+/**
  * Control the test phases
  */
 async function controlTestPhases() {
@@ -245,6 +264,18 @@ async function controlTestPhases() {
  */
 async function runPerformanceTest() {
   console.log('Starting Infinity Gym Website Performance Test...');
+  
+  // Check if server is running
+  console.log('Checking if server is running at http://localhost:3002/...');
+  const serverRunning = await checkServer();
+  if (!serverRunning) {
+    console.error('Error: Server is not running at http://localhost:3002/');
+    console.error('Please start the server with: npm run test:performance:start-server');
+    console.error('Then run this test in another terminal with: npm run test:performance:run');
+    process.exit(1);
+  }
+  
+  console.log('Server is running, continuing with performance test...');
   console.log(`Configuration: Up to ${CONFIG.MAX_CONCURRENT_USERS} virtual users`);
   console.log(`Ramp-up: ${CONFIG.RAMP_UP_DURATION / 1000 / 60} minutes`);
   console.log(`Sustained load: ${CONFIG.SUSTAINED_DURATION / 1000 / 60} minutes`);

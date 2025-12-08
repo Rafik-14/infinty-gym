@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the JavaScript file
-const memberJs = fs.readFileSync(path.resolve(__dirname, './Member.js'), 'utf8');
+const memberJs = fs.readFileSync(path.resolve(__dirname, '../../js/Member.js'), 'utf8');
 
 // Create a function to evaluate the class in the global context
 function getMemberClass() {

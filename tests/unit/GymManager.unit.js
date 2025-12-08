@@ -13,9 +13,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the JavaScript files
-const memberJs = fs.readFileSync(path.resolve(__dirname, './Member.js'), 'utf8');
-const membershipJs = fs.readFileSync(path.resolve(__dirname, './Membership.js'), 'utf8');
-const gymManagerJs = fs.readFileSync(path.resolve(__dirname, './GymManager.js'), 'utf8');
+const memberJs = fs.readFileSync(path.resolve(__dirname, '../../js/Member.js'), 'utf8');
+const membershipJs = fs.readFileSync(path.resolve(__dirname, '../../js/Membership.js'), 'utf8');
+const gymManagerJs = fs.readFileSync(path.resolve(__dirname, '../../js/GymManager.js'), 'utf8');
 
 // Create a function to evaluate the classes in the global context
 function getClasses() {

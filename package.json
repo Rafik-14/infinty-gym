@@ -12,7 +12,7 @@
     "test:e2e": "mocha tests/e2e/comprehensive-tests.e2e.js",
     "test:performance:start-server": "node tests/performance/server.js",
     "test:performance:run": "node tests/performance/load-test.js",
-    "test:performance": "echo 'To run performance tests, start the server with npm run test:performance:start-server in one terminal, then run npm run test:performance:run in another terminal'",
+    "test:performance": "echo 'To run performance tests, start the server with npm run test:performance:start-server in one terminal, then run npm run test:performance:run in another terminal. Server runs on port 3002.'",
     "build": "echo \"Build script not configured\" && exit 1",
     "start": "echo 'Open index.html in your browser to view the website'"
   },
